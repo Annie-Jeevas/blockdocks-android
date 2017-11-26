@@ -1,11 +1,5 @@
 package android.anna.blockdocs_v2.model;
 
-import java.util.Date;
-
-/**
- * Created by annal_000 on 06.11.2017.
- */
-
 public class Doc {
     private int id;
     private int number;
