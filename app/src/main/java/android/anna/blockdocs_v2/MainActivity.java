@@ -4,6 +4,7 @@ import android.anna.blockdocs_v2.helpers.EthHelper;
 import android.anna.blockdocs_v2.model.Doc;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
@@ -85,36 +86,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         welcome = (TextView) findViewById(R.id.welcomeText);
-        contractAddress = (TextView) findViewById(R.id.contractAddress);
-        String walletFilePath = context.getFilesDir().toString() + "/blockdocs";
-
+        BlockdocsApplication app = (BlockdocsApplication) getApplicationContext();
+        credentials = app.getCredentials();
+        Intent intent = getIntent();
+        welcome.setText("Welcome " +
+                intent.getStringExtra("login"));
         EthHelper.fillDocList(docs);
 
         ArrayAdapter arrayAdapter = new DocArrayAdapter(this, 0, docs);
         ListView listView = (ListView) findViewById(R.id.docsListView);
         listView.setAdapter(arrayAdapter);
-
-        try {
-            credentials = EthHelper.loadCredentialsFromFile("pass", walletFilePath);
-            welcome.setText(credentials.getAddress());
-        } catch (CipherException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
     public void onBlockClick(View view) {
         log.info("In onClick for ConstraintLayout");
         try {
-            Web3j web3 = Web3jFactory.build(new HttpService("http://13.81.213.199:8545"));  // defaults to http://localhost:8545/
+            Web3j web3 = Web3jFactory.build(new HttpService("http://192.168.1.65:8545"));  // defaults to http://localhost:8545/
             Web3ClientVersion web3ClientVersion = web3.web3ClientVersion().sendAsync().get();
             String clientVersion = web3ClientVersion.getWeb3ClientVersion();
             log.info("clientVersion " + clientVersion);
-            EthHelper.deployDocuments(web3, credentials);
+            EthHelper.getDocuments(credentials);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void onAddDocClick(View view) {
+        Intent intent = new Intent(MainActivity.this, EntryActivity.class);
+        intent.putExtras(getIntent());
+        startActivity(intent);
     }
 }
