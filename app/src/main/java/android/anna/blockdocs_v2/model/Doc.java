@@ -6,6 +6,7 @@ public class Doc {
     private String graduationDate;
     private String qualification;
     private String specialization;
+    private String FIO;
 
     public int getId() {
         return id;
@@ -47,11 +48,20 @@ public class Doc {
         this.specialization = specialization;
     }
 
-    public Doc(int id, int number, String graduationDate, String qualification, String specialization) {
+    public String getFIO() {
+        return FIO;
+    }
+
+    public void setFIO(String FIO) {
+        this.FIO = FIO;
+    }
+
+    public Doc(int id, int number, String graduationDate, String qualification, String specialization, String FIO) {
         this.id = id;
         this.number = number;
         this.graduationDate = graduationDate;
         this.qualification = qualification;
         this.specialization = specialization;
+        this.FIO = FIO;
     }
 }

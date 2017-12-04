@@ -2,6 +2,7 @@ package android.anna.blockdocs_v2;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.anna.blockdocs_v2.helpers.CredentialsHelper;
 import android.anna.blockdocs_v2.helpers.EthHelper;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -258,12 +259,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
             String walletFilePath = context.getFilesDir().toString() + "/blockdocs";
-            try {
-                credentials = EthHelper.loadCredentialsFromFile(mPassword, "");
-            } catch (CipherException e) {
-                e.printStackTrace();
-                return false;
-            }
+            credentials = CredentialsHelper.loadExistCredentials(mEmail);
+            if (credentials == null) return false;
             return true;
         }
 
@@ -293,8 +290,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     alert.show();
                     return;
                 }
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                mEmailView.setError(getString(R.string.error_field_required));
+                mEmailView.requestFocus();
             }
         }
 
