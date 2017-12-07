@@ -37,12 +37,14 @@ public class EthAddDocumentTask extends AsyncTask<Void, Void, Boolean> {
                 credentials,
                 new BigInteger("100000000000"),
                 new BigInteger("4712388"));
-
+        Log.d(TAG, "Try to add doc. Before try");
         try {
-            docs.addDocument(doc.getQualification(),doc.getFIO()).send();
-            //TODO сделать зашифровку через JSON
+            Log.d(TAG, "Try to add doc");
+            docs.addDocument(doc.toJson(), doc.getFIO())
+                    .send();
             return true;
         } catch (Exception e) {
+            Log.d(TAG, "Try to add doc failed. In catch");
             e.printStackTrace();
         }
         return false;

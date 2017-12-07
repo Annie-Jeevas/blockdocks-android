@@ -1,14 +1,10 @@
 package android.anna.blockdocs_v2;
 
-import android.anna.blockdocs_v2.helpers.AsyncTasks.EthDeployTask;
 import android.anna.blockdocs_v2.helpers.AsyncTasks.EthGetDocumentsTask;
-import android.anna.blockdocs_v2.helpers.EthHelper;
 import android.anna.blockdocs_v2.helpers.DocArrayAdapter;
 import android.anna.blockdocs_v2.model.Doc;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,32 +26,47 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     TextView welcome;
-    ConstraintLayout docBlock;
+    private View mProgressView;
+    private View mMainFormView;
+
     String TAG = "MAIN";
     List<Doc> docs = new ArrayList<>();
     Credentials credentials;
-
-    
+    BlockdocsApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG,"In onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        welcome = findViewById(R.id.welcomeText);
-        BlockdocsApplication app = (BlockdocsApplication) getApplicationContext();
+        welcome = findViewById(R.id.main_welcomeText);
+        mMainFormView = findViewById(R.id.main_docsListView);
+        mProgressView = findViewById(R.id.main_progressBar);
+        mProgressView.setTag("progressBar");
+
+        app = (BlockdocsApplication) getApplicationContext();
         credentials = app.getCredentials();
         Intent intent = getIntent();
         welcome.setText("Welcome " +
                 intent.getStringExtra("login"));
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         try {
+            app.showProgress(true,mMainFormView,mProgressView);
             docs = new EthGetDocumentsTask(credentials, app.getContractAddress()).execute().get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+        finally {
+            app.showProgress(false,mMainFormView,mProgressView);
+        }
 
         ArrayAdapter arrayAdapter = new DocArrayAdapter(this, 0, docs);
-        ListView listView = findViewById(R.id.docsListView);
+        ListView listView = findViewById(R.id.main_docsListView);
         listView.setAdapter(arrayAdapter);
     }
 

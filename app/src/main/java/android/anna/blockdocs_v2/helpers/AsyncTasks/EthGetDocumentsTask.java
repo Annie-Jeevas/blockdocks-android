@@ -11,6 +11,7 @@ import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tuples.generated.Tuple4;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,33 +41,48 @@ public class EthGetDocumentsTask extends AsyncTask<Void, Void, List<Doc>> {
                 new BigInteger("100000000000"),
                 new BigInteger("4712388"));
 
+
+        BigInteger myDocsNumber = null;
         try {
-            BigInteger lastDoc = docs.getDocumentsNumber().send();
+            myDocsNumber = docs.getThisAddresDocNumber().send();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+        long docNumber = myDocsNumber.longValue();
             List<Doc> result = new ArrayList<>();
-            for (BigInteger i = new BigInteger("0"); i.compareTo(lastDoc) < 0; i.add(BigInteger.ONE)) {
+            for (long i = 0; i <= docNumber; i++) {
                 Tuple4<BigInteger,  //ID
                         String,     //owner address
                         String,     //data
                         String      //fio
-                        > docTuple4 = docs.getDocById(i).send();
-                Doc doc = new Doc(docTuple4.getValue1().intValue(),
-                        0,
-                        "gradDate",
-                        docTuple4.getValue2(),
-                        docTuple4.getValue3(),
-                        docTuple4.getValue4());
-                //TODO сделать расшифровку JSON
+                        > docTuple4 = null;
+                try {
+                    docTuple4 = docs.getThisAddresDocById(new BigInteger(String.valueOf(i))).send();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    continue;
+                }
+                Log.d(TAG, "ID: " + docTuple4.getValue1());
+                Log.d(TAG, "Owner: " + docTuple4.getValue2());
+                Log.d(TAG, "Data: " + docTuple4.getValue3());
+                Log.d(TAG, "FIO: " + docTuple4.getValue4());
+                Doc doc = null;
+                try {
+                    doc = Doc.valueOfJson(docTuple4.getValue3());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    continue; //поврежденный документ, пропускаем
+                }
+                result.add(doc);
             }
             return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+
     }
 
     @Override
     protected void onPostExecute(List<Doc> result) {
-        Log.d(TAG, result==null?"Can't get doc list":"Doc number: " + result.size());
+        Log.d(TAG, result == null ? "Can't get doc list" : "Doc number: " + result.size());
 
     }
 }

@@ -44,7 +44,11 @@ public class EthHelper {
 
     public static Boolean saveDoc(Doc d, Credentials credentials, String contractAddress) {
         Log.d(TAG, "In saveDoc()");
-        new EthAddDocumentTask(credentials, contractAddress, d).execute();
-        return true;
+        try {
+            return new EthAddDocumentTask(credentials, contractAddress, d).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
