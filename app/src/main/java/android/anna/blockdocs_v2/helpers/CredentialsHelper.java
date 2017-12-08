@@ -22,9 +22,9 @@ import java.util.Map;
 public class CredentialsHelper {
     static Map<String,String> privateKeys = new HashMap<>();
     static {
-        privateKeys.put("anya","266d9959abc858de1ede331156082a2e897201a170a7c7f99f72599407aca283");
-        privateKeys.put("alice","9f91c4d3dabfa7298bfee5e6d8fa7a1502f363f938465b570d1a32ceb1d692c0");
-        privateKeys.put("bob","c4fb9b2e6ac80bfba2e2639e86adc12e09d1bb5495bf4764c12264ef374a614a");
+        privateKeys.put("anya","56b263491870509f6fb984d0d3530c4b292626a920db079ddfa14cba8487c303");
+        privateKeys.put("alice","4d71cf983187f9876d4a1e3436c5623ba2cb801f17460621b76ae58eff630965");
+        privateKeys.put("bob","0464ab1e2de80ef96a5f72a58651e0bd7675ccbfb779910fde084672a4ef9ae5");
     }
 
     public static Credentials loadCredentialsFromFile(String password, String filePath) throws CipherException {

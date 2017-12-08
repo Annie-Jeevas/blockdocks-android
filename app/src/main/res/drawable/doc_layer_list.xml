@@ -8,11 +8,12 @@
                 android:startColor="@color/secondary_text"
                 android:endColor="@color/divider"
                 android:centerColor="@color/colorPrimaryDark"
-                android:type="sweep"
+                android:type="radial"
+                android:gradientRadius="@dimen/mdtp_date_picker_component_width"
                 />
             <corners
-                android:bottomLeftRadius="7dp"
-                android:topRightRadius="7dp" />
+                android:bottomLeftRadius="8dp"
+                android:topRightRadius="8dp" />
         </shape>
     </item>
     <item
@@ -24,8 +25,8 @@
             android:layout_width="wrap_content">
             <solid android:color="@color/icons" />
             <corners
-                android:bottomLeftRadius="7dp"
-                android:topRightRadius="7dp" />
+                android:bottomLeftRadius="8dp"
+                android:topRightRadius="8dp" />
         </shape>
     </item>
 

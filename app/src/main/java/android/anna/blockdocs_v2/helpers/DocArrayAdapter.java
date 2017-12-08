@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,10 +38,15 @@ public class DocArrayAdapter extends ArrayAdapter<Doc> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.docblock_layout, null);
 
-        TextView number = (TextView) view.findViewById(R.id.number);
-        TextView specialization = (TextView) view.findViewById(R.id.specialization);
-        TextView qualification = (TextView) view.findViewById(R.id.qualification);
-        TextView graduationDate = (TextView) view.findViewById(R.id.graduation);
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(8, 8, 8, 8);
+            view.requestLayout();
+        }
+        TextView number = view.findViewById(R.id.number);
+        TextView specialization = view.findViewById(R.id.specialization);
+        TextView qualification = view.findViewById(R.id.qualification);
+        TextView graduationDate = view.findViewById(R.id.graduation);
 
         number.setText(String.valueOf(doc.getNumber()));
         specialization.setText(doc.getSpecialization());

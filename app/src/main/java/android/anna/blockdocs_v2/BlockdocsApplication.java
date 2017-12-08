@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 public class BlockdocsApplication extends Application {
     private Credentials credentials;
-    private String contractAddress = "0xf02be4ca0a011459dc410aac8acadc2442446b76";
+    private String contractAddress = "0x575378fce56968da772f5f69c0ccfa919eae380e";
     private String FIO = "";
 
     public Credentials getCredentials() {
