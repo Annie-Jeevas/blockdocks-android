@@ -23,8 +23,8 @@ public class CredentialsHelper {
     static Map<String,String> privateKeys = new HashMap<>();
     static {
         privateKeys.put("anya","56b263491870509f6fb984d0d3530c4b292626a920db079ddfa14cba8487c303");
-        privateKeys.put("alice","4d71cf983187f9876d4a1e3436c5623ba2cb801f17460621b76ae58eff630965");
-        privateKeys.put("bob","0464ab1e2de80ef96a5f72a58651e0bd7675ccbfb779910fde084672a4ef9ae5");
+        privateKeys.put("alice","4589dab39424c2e86d540396cf02b4cd578f65374045f69448cda55db278752d");
+        privateKeys.put("bob","44356e21c3626663bca85327896c6f8097fe1bc18a8925a3405aa32387fb6a52");
     }
 
     public static Credentials loadCredentialsFromFile(String password, String filePath) throws CipherException {
