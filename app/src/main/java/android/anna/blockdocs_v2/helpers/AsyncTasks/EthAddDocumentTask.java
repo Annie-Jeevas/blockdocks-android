@@ -1,7 +1,9 @@
 package android.anna.blockdocs_v2.helpers.AsyncTasks;
 
 import android.anna.blockdocs_v2.Documents;
+import android.anna.blockdocs_v2.R;
 import android.anna.blockdocs_v2.model.Doc;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -31,7 +33,7 @@ public class EthAddDocumentTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... voids) {
-        Web3j web3 = Web3jFactory.build(new HttpService("http://192.168.1.65:8545"));
+        Web3j web3 = Web3jFactory.build(new HttpService("http://172.18.4.207:8545"));
         Documents docs = Documents.load(contractAddress,
                 web3,
                 credentials,

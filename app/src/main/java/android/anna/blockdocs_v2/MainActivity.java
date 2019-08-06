@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public void onBlockClick(View view) {
         Log.d(TAG, "In onClick for ConstraintLayout");
         try {
-            Web3j web3 = Web3jFactory.build(new HttpService("http://192.168.1.65:8545"));  // defaults to http://localhost:8545/
+            Web3j web3 = Web3jFactory.build(new HttpService("http://172.18.4.207:8545"));
             Web3ClientVersion web3ClientVersion = web3.web3ClientVersion().sendAsync().get();
             String clientVersion = web3ClientVersion.getWeb3ClientVersion();
             Log.d(TAG, "clientVersion " + clientVersion);

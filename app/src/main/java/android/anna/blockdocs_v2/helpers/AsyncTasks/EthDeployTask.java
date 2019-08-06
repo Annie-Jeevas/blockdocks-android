@@ -1,8 +1,13 @@
 package android.anna.blockdocs_v2.helpers.AsyncTasks;
 
 import android.anna.blockdocs_v2.Documents;
+import android.anna.blockdocs_v2.MainActivity;
+import android.anna.blockdocs_v2.R;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.kenai.jffi.Main;
 
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
@@ -28,7 +33,7 @@ public class EthDeployTask extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         Log.d(TAG, "In doInBackground");
-        Web3j web3j = Web3jFactory.build(new HttpService("http://192.168.1.65:8545"));
+        Web3j web3j = Web3jFactory.build(new HttpService("http://172.18.4.207:8545"));
         try {
             Documents docContract = Documents.deploy(
                     web3j,

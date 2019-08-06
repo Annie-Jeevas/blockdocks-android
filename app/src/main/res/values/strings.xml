@@ -2,7 +2,8 @@
     <string name="app_name">BlockDocs</string>
     <string name="title_activity_entry">Add Document</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="blockchainpath">http://192.168.1.65:8545</string>
+    <string name="blockchainpath">http://172.18.4.207:8545</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -15,7 +16,4 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
